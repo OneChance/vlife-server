@@ -16,26 +16,13 @@ public class AccountController {
 	
 	@RequestMapping("/getLoginAccount")
 	public Account getLoginAccount(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		return accountService.getLoginAccount(request);
+		return accountService.getLoginAccount(request,response);
 	}
     
     @RequestMapping("/login")
 	public Account login(@RequestBody Account account, HttpServletRequest request,HttpServletResponse response) throws Exception {
-
-		String checkRes = accountService.checkLogin(account);
-		if (!checkRes.equals("")) {
-			account.setMsg(checkRes);
-		}else{
-			LogAccount(request, response, account);
-		}
-
+		accountService.login(account,request,response);
 		return account;
-	}
-    
-    public void LogAccount(HttpServletRequest request, HttpServletResponse response, Account account) throws Exception {
-		Account accountSession = new Account();
-		accountSession.setId(account.getId());
-		request.getSession().setAttribute("login_account", accountSession);
 	}
     
     @Resource
