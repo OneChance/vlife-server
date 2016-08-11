@@ -20,9 +20,8 @@ public class AccountController {
 	}
     
     @RequestMapping("/login")
-	public Account login(@RequestBody Account account, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		accountService.login(account,request,response);
-		return account;
+	public Account login(@RequestBody Account account, HttpServletRequest request,HttpServletResponse response) throws Exception {	
+		return accountService.login(account,request,response);
 	}
     
     @Resource

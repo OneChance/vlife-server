@@ -170,7 +170,7 @@ public class CookieTool {
 	}
 	
 	public static Account getCookieAccount(HttpServletRequest request) throws Exception{
-		String dbc = getCookies(request, "dbc");
+		String dbc = getCookies(request, "dbc_");
 		String[] all = cookieDecipher(dbc).split(",");
 		if (null == all || all.length != 2) {
 			return null;

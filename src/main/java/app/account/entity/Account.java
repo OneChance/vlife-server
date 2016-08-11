@@ -6,11 +6,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import app.base.BaseEntity;
+import app.speice.entity.Species;
 
 @Entity
+@Table(name = "account")
 public class Account extends BaseEntity{
 
 	@Id
@@ -22,7 +27,9 @@ public class Account extends BaseEntity{
 	private String name;
 	private String password;
 	private String sex;
-	private Integer specie;
+	
+	@Column(name="speciesid")
+	private Integer speciesId;
 	private Integer soul;
 	
 	@Column(name="addpow")
@@ -43,9 +50,11 @@ public class Account extends BaseEntity{
 	private Integer satiety;
 	private Integer vigor;
 	private Integer hp;
+	@Transient
+	private Species species;
 
 	public Account() {
-		this.specie = 0;
+		this.speciesId = 0;
 		this.soul = 0;
 		this.addPow = 0;
 		this.addDef = 0;
@@ -97,14 +106,6 @@ public class Account extends BaseEntity{
 
 	public void setAccount(String account) {
 		this.account = account;
-	}
-
-	public Integer getSpecie() {
-		return specie;
-	}
-
-	public void setSpecie(Integer specie) {
-		this.specie = specie;
 	}
 
 	public Integer getSoul() {
@@ -211,4 +212,20 @@ public class Account extends BaseEntity{
 		this.hp = hp;
 	}
 
+	public Integer getSpeciesId() {
+		return speciesId;
+	}
+
+	public void setSpeciesId(Integer speciesId) {
+		this.speciesId = speciesId;
+	}
+
+	public Species getSpecies() {
+		return species;
+	}
+
+	public void setSpecies(Species species) {
+		this.species = species;
+	}
+	
 }
