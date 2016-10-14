@@ -1,26 +1,19 @@
 package app.account.service;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManagerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import app.account.entity.Account;
 import app.base.CookieTool;
-import app.base.DatabaseService;
 import app.speice.entity.Species;
 import app.speice.service.SpeiceService;
 
 @Component
-public class AccountService extends DatabaseService {
-
-	public AccountService(JdbcTemplate jdbcTemplate, EntityManagerFactory factory) {
-		super(jdbcTemplate, factory);
-	}
+public class AccountService{
 
 	public Account getAccount(Long id) throws Exception {
-		return this.get(Account.class, id);
+		return accountRepository.getOne(id);
 	}
 
 	public String accountInputCheck(Account account) {
@@ -43,8 +36,7 @@ public class AccountService extends DatabaseService {
 			return inputRes;
 		}
 
-		Account accountDb = this.get(Account.class, "select * from account where account=?",
-				new String[] { account.getAccount() });
+		Account accountDb = accountRepository.getByAccount(account.getAccount());
 
 		if (accountDb != null) {
 			return "accountexist";
@@ -62,8 +54,7 @@ public class AccountService extends DatabaseService {
 			return account;
 		}
 
-		Account account_db = this.get(Account.class, "select * from account where account=? and password=?",
-				new String[] { account.getAccount(), account.getPassword() });
+		Account account_db = accountRepository.getByIdentity(account.getAccount(), account.getPassword());
 
 		if (account_db == null) {
 			account.setMsg("accounterror");
@@ -129,4 +120,6 @@ public class AccountService extends DatabaseService {
 
 	@Resource
 	SpeiceService speiceService;
+	@Resource
+	private AccountRepository accountRepository;
 }
