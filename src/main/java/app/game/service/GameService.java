@@ -4,22 +4,19 @@ import java.util.Date;
 import java.util.Random;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
+
+import app.account.service.AccountService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import app.account.entity.Account;
-import app.base.DatabaseService;
 import app.speice.entity.Species;
 import app.speice.service.SpeiceService;
 
 
 @Service
-public class GameService extends DatabaseService {
+public class GameService {
 
-	public GameService(JdbcTemplate jdbcTemplate, EntityManagerFactory factory) {
-		super(jdbcTemplate, factory);
-	}
-
-	public Integer reincarnation(Integer soul) {
+	public Long reincarnation(Integer soul) {
 		Random random = new Random();
 		Integer max = getRandomMax();
 		Integer randomValue = Math.min(random.nextInt(max) % (max - 1 + 1) + 1
@@ -27,19 +24,17 @@ public class GameService extends DatabaseService {
 		return getSpeiceByRandomValue(randomValue);
 	}
 
+
 	public Integer getRandomMax() {
-		String sql = "select max(ratioEnd) from species";
-		return getForType(sql, Integer.class);
+		return gameRepository.getRandomMax();
 	}
 
-	public Integer getSpeiceByRandomValue(Integer randomValue) {
-		String sql = "select id from vlife.species where ratioStart<="
-				+ randomValue + " and ratioEnd>=" + randomValue;
-		return getForType(sql, Integer.class);
+	public Long getSpeiceByRandomValue(Integer randomValue) {
+		return gameRepository.getSpeiceByRandomValue(randomValue);
 	}
 
 	public void initAccount(Account account) throws Exception {
-		Integer speciesId = reincarnation(account.getSoul());
+		Long speciesId = reincarnation(account.getSoul());
 		account.setSpeciesId(speciesId);
 		account.setLevel(1);
 		account.setExp(0);
@@ -76,10 +71,10 @@ public class GameService extends DatabaseService {
 		Integer sumSoul = account.getSoul() + soul;
 		account.setSoul(sumSoul);
 		initAccount(account);
-		Species newSpecies = this.get(Species.class, account.getSpeciesId());
+		Species newSpecies = speiceService.getById(account.getSpeciesId());
 		account.setSoul(sumSoul - newSpecies.getSoul());
 		assetConvert(account);
-		this.merge(account);
+		accountService.save(account);
 		
 		return "";
 	}
@@ -121,7 +116,7 @@ public class GameService extends DatabaseService {
 		account.setHp(Math.min(account.getHp(),
 				account.getAddHp() + species.getBaseHp()));
 
-		this.merge(account);
+		accountService.save(account);
 
 		return "";
 	}
@@ -132,4 +127,8 @@ public class GameService extends DatabaseService {
 
 	@Resource
 	SpeiceService speiceService;
+	@Resource
+	AccountService accountService;
+	@Resource
+	GameRepository gameRepository;
 }

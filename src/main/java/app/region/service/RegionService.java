@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.RequestContext;
 import app.account.entity.Account;
-import app.base.DatabaseService;
 import app.region.entity.Region;
 import app.region.entity.RegionInfo;
 import app.region.entity.RegionTree;

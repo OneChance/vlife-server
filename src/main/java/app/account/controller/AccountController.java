@@ -23,7 +23,7 @@ public class AccountController {
 	public Account login(@RequestBody Account account, HttpServletRequest request,HttpServletResponse response) throws Exception {	
 		return accountService.login(account,request,response);
 	}
-    
+
     @Resource
 	AccountService accountService;
 }

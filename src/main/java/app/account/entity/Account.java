@@ -26,10 +26,11 @@ public class Account extends BaseEntity{
 	private String account;
 	private String name;
 	private String password;
+	private String salt;
 	private String sex;
 	
 	@Column(name="speciesid")
-	private Integer speciesId;
+	private Long speciesId;
 	private Integer soul;
 	
 	@Column(name="addpow")
@@ -52,9 +53,11 @@ public class Account extends BaseEntity{
 	private Integer hp;
 	@Transient
 	private Species species;
+	@Transient
+	private String enterType;
 
 	public Account() {
-		this.speciesId = 0;
+		this.speciesId = 0l;
 		this.soul = 0;
 		this.addPow = 0;
 		this.addDef = 0;
@@ -212,14 +215,6 @@ public class Account extends BaseEntity{
 		this.hp = hp;
 	}
 
-	public Integer getSpeciesId() {
-		return speciesId;
-	}
-
-	public void setSpeciesId(Integer speciesId) {
-		this.speciesId = speciesId;
-	}
-
 	public Species getSpecies() {
 		return species;
 	}
@@ -227,5 +222,28 @@ public class Account extends BaseEntity{
 	public void setSpecies(Species species) {
 		this.species = species;
 	}
-	
+
+	public String getEnterType() {
+		return enterType;
+	}
+
+	public void setEnterType(String enterType) {
+		this.enterType = enterType;
+	}
+
+	public Long getSpeciesId() {
+		return speciesId;
+	}
+
+	public void setSpeciesId(Long speciesId) {
+		this.speciesId = speciesId;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 }

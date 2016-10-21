@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import app.account.entity.Account;
-import app.base.DatabaseService;
 import app.inventory.entity.Inventory;
 
 @Service
