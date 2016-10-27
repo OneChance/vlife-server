@@ -134,7 +134,6 @@ public class CookieTool {
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String input = account.getAccount() + "," + account.getPassword();
 		String dbc = cookieEncrypt(input);
-		request.getSession().setAttribute("dbc", dbc);
 		setCookies(response, "dbc_", dbc);
 	}
 	
@@ -171,6 +170,9 @@ public class CookieTool {
 	
 	public static Account getCookieAccount(HttpServletRequest request) throws Exception{
 		String dbc = getCookies(request, "dbc_");
+		if(dbc==null){
+			return null;
+		}
 		String[] all = cookieDecipher(dbc).split(",");
 		if (null == all || all.length != 2) {
 			return null;

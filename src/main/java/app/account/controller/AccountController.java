@@ -24,6 +24,11 @@ public class AccountController {
 		return accountService.login(account,request,response);
 	}
 
+	@RequestMapping("/loginOut")
+	public void loginOut(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		accountService.clearAccount(request,response);
+	}
+
     @Resource
 	AccountService accountService;
 }

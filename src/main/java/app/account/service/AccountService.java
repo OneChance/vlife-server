@@ -153,6 +153,11 @@ public class AccountService {
         CookieTool.logCookie(account, request, response);
     }
 
+    public void clearAccount(HttpServletRequest request, HttpServletResponse response){
+        request.getSession().setAttribute("login_account", null);
+        CookieTool.cleanCookies(response, "dbc_");
+    }
+
     public void encrypt(Account account) throws NoSuchAlgorithmException {
         SecureRandom csprng = new SecureRandom();
         byte[] randomBytes = new byte[32];
