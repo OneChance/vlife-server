@@ -24,7 +24,7 @@ public class Species {
 	@Column(name="baseint")
 	private Integer baseInt;
 	private Integer soul;
-	@Column(name="ratiostate")
+	@Column(name="ratiostart")
 	private Integer ratioStart;
 	@Column(name="ratioend")
 	private Integer ratioEnd;

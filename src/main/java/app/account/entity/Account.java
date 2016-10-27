@@ -47,7 +47,7 @@ public class Account extends BaseEntity{
 	private Date reincarnateTime;
 	private Integer level;
 	private Integer exp;
-	private Integer region;
+	private Long region;
 	private Integer satiety;
 	private Integer vigor;
 	private Integer hp;
@@ -55,6 +55,8 @@ public class Account extends BaseEntity{
 	private Species species;
 	@Transient
 	private String enterType;
+	@Transient
+	private Long remainTime;
 
 	public Account() {
 		this.speciesId = 0l;
@@ -66,7 +68,7 @@ public class Account extends BaseEntity{
 		this.addInt = 0;
 		this.level = 0;
 		this.exp = 0;
-		this.region = 0;
+		this.region = 0l;
 		this.satiety = 100;
 		this.vigor = 100;
 	}
@@ -183,11 +185,11 @@ public class Account extends BaseEntity{
 		this.exp = exp;
 	}
 
-	public Integer getRegion() {
+	public Long getRegion() {
 		return region;
 	}
 
-	public void setRegion(Integer region) {
+	public void setRegion(Long region) {
 		this.region = region;
 	}
 
@@ -245,5 +247,13 @@ public class Account extends BaseEntity{
 
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+
+	public Long getRemainTime() {
+		return remainTime;
+	}
+
+	public void setRemainTime(Long remainTime) {
+		this.remainTime = remainTime;
 	}
 }

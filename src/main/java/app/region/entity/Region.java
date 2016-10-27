@@ -1,42 +1,52 @@
 package app.region.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "region")
 public class Region {
-	private Integer id;
-	private Integer pid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private Long pid;
 	private String name;
 	private String type;
+
+	@Transient
 	private List<Region> subRegions;
+	@Transient
 	private Integer deep;
+	@Transient
 	private NodeState state;
+	@Transient
 	private String color;
 
 	public Region() {
 		subRegions = new ArrayList<Region>();
-		id = 0;
-		pid = 0;
+		id = 0l;
+		pid = 0l;
 		name = "";
 		deep = 0;
 		state = new NodeState();
 		color = "";
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public void setPid(Integer pid) {
-		this.pid = pid;
+	public Long getPid() {
+		return pid;
 	}
 
-	public Integer getPid() {
-		return pid;
+	public void setPid(Long pid) {
+		this.pid = pid;
 	}
 
 	public List<Region> getSubRegions() {

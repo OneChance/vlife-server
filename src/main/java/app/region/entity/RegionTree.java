@@ -13,7 +13,7 @@ public class RegionTree {
 
 	public RegionTree(RequestContext context) {
 		root = new Region();
-		root.setId(-1);
+		root.setId(-1l);
 		regionList = new ArrayList<Region>();
 		loadRegion(root, regionList);
 		this.context = context;
@@ -48,10 +48,10 @@ public class RegionTree {
 		regionList.add(r);
 	}
 
-	public Region getRegionById(Integer id) {
+	public Region getRegionById(Long id) {
 
 		for (Region r : regionList) {
-			if (r.getId().intValue() == id.intValue()) {
+			if (r.getId().longValue() == id.longValue()) {
 				return r;
 			}
 		}
@@ -93,7 +93,7 @@ public class RegionTree {
 		}
 	}
 
-	public String getPath(Integer rid) {
+	public String getPath(Long rid) {
 
 		String path = "";
 
@@ -111,7 +111,7 @@ public class RegionTree {
 		return path;
 	}
 
-	public Integer getDistance(Integer fromRid, Integer toRid) {
+	public Integer getDistance(Long fromRid, Long toRid) {
 
 		if (fromRid == 0) {
 			return 0;

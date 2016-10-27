@@ -3,6 +3,7 @@ package app.inventory.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,16 +13,10 @@ import app.account.entity.Account;
 import app.inventory.entity.Inventory;
 
 @Service
-public class InventoryService extends DatabaseService{
-	
-	public InventoryService(JdbcTemplate jdbcTemplate, EntityManagerFactory factory) {
-		super(jdbcTemplate, factory);
-	}
-	
+public class InventoryService{
+
 	public List<Inventory> getInventoryByAccount(Account account) {
-		String sql = "select * from inventory where account=?";
-		List<Inventory> inventoryList = this.gets(Inventory.class, sql,
-				new Long[] { account.getId() });
+		List<Inventory> inventoryList = inventoryRepository.getByAccount(account.getId());
 		if (inventoryList == null) {
 			inventoryList = new ArrayList<Inventory>();
 		}
@@ -35,4 +30,7 @@ public class InventoryService extends DatabaseService{
 
 		}
 	}
+
+	@Resource
+	InventoryRepository inventoryRepository;
 }

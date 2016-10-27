@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 
+import app.account.service.AccountRepository;
 import app.account.service.AccountService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,11 @@ public class GameService {
 
 
 	public Integer getRandomMax() {
-		return gameRepository.getRandomMax();
+		return speiceService.getRandomMax();
 	}
 
 	public Long getSpeiceByRandomValue(Integer randomValue) {
-		return gameRepository.getSpeiceByRandomValue(randomValue);
+		return speiceService.getSpeiceByRandomValue(randomValue);
 	}
 
 	public void initAccount(Account account) throws Exception {
@@ -42,7 +43,7 @@ public class GameService {
 		account.setReincarnateTime(bornDate);
 		account.setVigor(100);
 		account.setSatiety(100);
-		account.setHp(SpeiceService.speciesInfo.get(speciesId).getBaseHp());
+		account.setHp(speiceService.getSpeciesInfo().get(speciesId).getBaseHp());
 	}
 
 	public Long getRemainTime(Account account, Species species) {
@@ -74,7 +75,7 @@ public class GameService {
 		Species newSpecies = speiceService.getById(account.getSpeciesId());
 		account.setSoul(sumSoul - newSpecies.getSoul());
 		assetConvert(account);
-		accountService.save(account);
+		accountRepository.save(account);
 		
 		return "";
 	}
@@ -116,7 +117,7 @@ public class GameService {
 		account.setHp(Math.min(account.getHp(),
 				account.getAddHp() + species.getBaseHp()));
 
-		accountService.save(account);
+		accountRepository.save(account);
 
 		return "";
 	}
@@ -128,7 +129,5 @@ public class GameService {
 	@Resource
 	SpeiceService speiceService;
 	@Resource
-	AccountService accountService;
-	@Resource
-	GameRepository gameRepository;
+	AccountRepository accountRepository;
 }

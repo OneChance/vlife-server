@@ -14,7 +14,7 @@ import app.speice.entity.Species;
 @Component
 public class SpeiceService {
 
-	public static Map<Integer, Species> speciesInfo;
+	public static Map<Long, Species> speciesInfo;
 
 	public Species getSpeices(Account account) throws Exception {
 		Long speciesId = account.getSpeciesId();
@@ -22,13 +22,13 @@ public class SpeiceService {
 		return species;
 	}
 	
-	public Map<Integer, Species> getSpeciesInfo() {
+	public Map<Long, Species> getSpeciesInfo() {
 
 		if (speciesInfo == null) {
-			speciesInfo = new HashMap<Integer, Species>();
+			speciesInfo = new HashMap<Long, Species>();
 			List<Species> speciesList = speiceRepository.findAll();
 			for (Species s : speciesList) {
-				speciesInfo.put(s.getId().intValue(), s);
+				speciesInfo.put(s.getId(), s);
 			}
 		}
 		return speciesInfo;
@@ -38,6 +38,13 @@ public class SpeiceService {
 		return speiceRepository.getOne(id);
 	}
 
+	public int getRandomMax(){
+		return speiceRepository.getRandomMax();
+	}
+
+	public Long getSpeiceByRandomValue(Integer randomValue){
+		return speiceRepository.getSpeiceByRandomValue(randomValue);
+	}
 
 	@Resource
 	SpeiceRepository speiceRepository;
