@@ -4,7 +4,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import app.game.service.GameService;
+import app.base.NetMessage;
+import app.role.service.RoleService;
 import org.springframework.stereotype.Component;
 import app.account.entity.Account;
 import app.base.CookieTool;
@@ -30,10 +31,10 @@ public class AccountService {
     public String accountInputCheck(Account account) {
 
         if (account.getAccount() == null || account.getAccount().equals("")) {
-            return "accountnull";
+            return "need_account";
         }
         if (account.getPassword() == null || account.getPassword().equals("")) {
-            return "passwordnull";
+            return "need_password";
         }
 
         return "";
@@ -44,13 +45,13 @@ public class AccountService {
         String inputRes = accountInputCheck(account);
 
         if (!inputRes.equals("")) {
-            account.setMsg(inputRes);
+            account.setMessage(NetMessage.DANGER,inputRes);
         }
 
         Account accountDb = accountRepository.getByAccount(account.getAccount());
 
         if (accountDb != null) {
-            account.setMsg("accountexist");
+            account.setMessage(NetMessage.DANGER,"account_exist");
         }
 
         return account;
@@ -61,18 +62,18 @@ public class AccountService {
         String inputRes = accountInputCheck(account);
 
         if (!inputRes.equals("")) {
-            account.setMsg(inputRes);
+            account.setMessage(NetMessage.DANGER,inputRes);
             return account;
         }
 
         Account account_db = accountRepository.getByIdentity(account.getAccount());
 
         if (account_db == null) {
-            account.setMsg("accounterror");
+            account.setMessage(NetMessage.DANGER,"account_error");
             return account;
         } else {
             if (!account_db.getPassword().equals(getEncryptedPassword(account_db, account.getPassword()))) {
-                account.setMsg("accounterror");
+                account.setMessage(NetMessage.DANGER,"account_error");
                 return account;
             }
             return account_db;
@@ -86,20 +87,20 @@ public class AccountService {
         if (account.getEnterType() != null) {
             if (account.getEnterType().equals("login")) {
                 accountRes = checkLogin(account);
-                if (accountRes.getMsg() == null || accountRes.getMsg().equals("")) {
+                if (accountRes.getContent() == null || accountRes.getContent().equals("")) {
                     this.LogAccount(request, response, account);
                 }
             } else {
                 accountRes = checkAccount(account);
-                if (accountRes.getMsg() == null || accountRes.getMsg().equals("")) {
-                    gameService.initAccount(account);
+                if (accountRes.getContent() == null || accountRes.getContent().equals("")) {
+                    roleService.initAccount(account);
                     encrypt(account);
                     accountRepository.save(account);
                     this.LogAccount(request, response, account);
                 }
             }
         } else {
-            accountRes.setMsg("enter-type-error");
+            accountRes.setMessage(NetMessage.DANGER,"data_error");
         }
 
         return accountRes;
@@ -117,25 +118,29 @@ public class AccountService {
      */
     public Account getLoginAccount(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Object accountId = request.getSession().getAttribute("login_account");
-        Account account = new Account();
         if (accountId != null) {
-            account = getById(Long.parseLong(accountId.toString()));
+            Account account = getById(Long.parseLong(accountId.toString()));
             setAccountInfo(account);
+            return account;
         } else {
-            account = CookieTool.getCookieAccount(request);
+            Account account = CookieTool.getCookieAccount(request);
             if (account != null) {
                 account.setEnterType("login");
                 account = login(account, request, response);
                 setAccountInfo(account);
+            }else{
+                account = new Account();
+                account.setMessage(NetMessage.DANGER,"account_invalid");
             }
+
+            return account;
         }
-        return account;
     }
 
     public void setAccountInfo(Account account) throws Exception {
         Species species = speiceService.getSpeices(account);
         account.setSpecies(species);
-        account.setRemainTime(gameService.getRemainTime(account, species));
+        account.setRemainTime(roleService.getRemainTime(account, species));
     }
 
     /**
@@ -199,7 +204,7 @@ public class AccountService {
     @Resource
     SpeiceService speiceService;
     @Resource
-    GameService gameService;
+    RoleService roleService;
     @Resource
     private AccountRepository accountRepository;
 }

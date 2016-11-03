@@ -11,12 +11,12 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import app.base.BaseEntity;
+import app.base.NetMessage;
 import app.speice.entity.Species;
 
 @Entity
 @Table(name = "account")
-public class Account extends BaseEntity{
+public class Account extends NetMessage {
 
 	@Id
 	@GeneratedValue(generator = "paymentableGenerator")

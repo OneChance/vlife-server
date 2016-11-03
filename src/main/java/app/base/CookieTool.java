@@ -129,14 +129,14 @@ public class CookieTool {
 		Matcher m = p.matcher(str);
 		return m.find();
 	}
-	
+
 	public static void logCookie(Account account,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String input = account.getAccount() + "," + account.getPassword();
 		String dbc = cookieEncrypt(input);
 		setCookies(response, "dbc_", dbc);
 	}
-	
+
 	private static String cookieEncrypt(String input) {
 		input = Base64Encoder.encode(input);
 		StringBuffer output = new StringBuffer();
@@ -152,7 +152,7 @@ public class CookieTool {
 		}
 		return output.toString();
 	}
-	
+
 	private static String cookieDecipher(String input) {
 		StringBuffer output = new StringBuffer();
 		for (int n = 0; n < input.toCharArray().length; n++) {
@@ -167,7 +167,7 @@ public class CookieTool {
 		}
 		return Base64Decoder.decode(output.toString());
 	}
-	
+
 	public static Account getCookieAccount(HttpServletRequest request) throws Exception{
 		String dbc = getCookies(request, "dbc_");
 		if(dbc==null){
