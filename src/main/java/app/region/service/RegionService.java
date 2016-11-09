@@ -33,20 +33,19 @@ public class RegionService {
         }
     };
 
-    public RegionTree getRegionTree(Species species, Account account,
-                                    RequestContext context) {
+    public RegionTree getRegionTree(Account account) {
 
-        String sql = "select * from region";
         List<Region> rList = regionRepository.findAll();
 
-        RegionTree rTree = new RegionTree(context);
+        RegionTree rTree = new RegionTree();
         for (Region r : rList) {
-            if (species != null) {
-                setAbleBySpecies(r, species);
-            }
+
+            setAbleBySpecies(r, account.getSpecies());
+
             if (r.getId().intValue() == account.getRegion().intValue()) {
                 r.setColor("#2c3e50");
             }
+
             rTree.addRegion(r);
         }
         rTree.setDeep(rTree.getRoot(), 1);
@@ -64,11 +63,10 @@ public class RegionService {
         }
     }
 
-    public RegionInfo getRegionInfo(Account account, Long region,
-                                    RequestContext context) {
+    public RegionInfo getRegionInfo(Account account, Long region) {
 
         RegionInfo ri = new RegionInfo();
-        RegionTree rTree = this.getRegionTree(null, account, null);
+        RegionTree rTree = this.getRegionTree(account);
         Integer moveDistance = rTree.getDistance(account.getRegion(), region);
 
         if (moveDistance < 0) {
@@ -78,8 +76,7 @@ public class RegionService {
 
             if (accountList != null) {
                 for (Account a : accountList) {
-                    String key = context.getMessage(SpeiceService.speciesInfo.get(
-                            a.getSpeciesId()).getName());
+                    Long key = a.getSpeciesId();
                     Integer num = 1;
                     if (ri.getMemberIn().get(key) != null) {
                         num = ri.getMemberIn().get(key) + 1;
@@ -99,7 +96,7 @@ public class RegionService {
             throws Exception {
 
         Species species = speiceService.getSpeices(account);
-        RegionTree rTree = this.getRegionTree(species, account, null);
+        RegionTree rTree = this.getRegionTree(account);
         Region region = rTree.getRegionById(regionId);
 
         if (regionId.intValue() == account.getRegion().intValue()

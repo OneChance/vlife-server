@@ -6,12 +6,12 @@ import java.util.Map;
 public class RegionInfo {
 	private Integer vigorCost;
 	private Integer satietyCost;
-	private Map<String, Integer> memberIn;
+	private Map<Long, Integer> memberIn;
 
 	public RegionInfo() {
 		vigorCost = 0;
 		satietyCost = 0;
-		memberIn = new HashMap<String, Integer>() {
+		memberIn = new HashMap<Long, Integer>() {
 			private static final long serialVersionUID = 1L;
 		};
 	}
@@ -32,12 +32,11 @@ public class RegionInfo {
 		this.satietyCost = satietyCost;
 	}
 
-	public Map<String, Integer> getMemberIn() {
+	public Map<Long, Integer> getMemberIn() {
 		return memberIn;
 	}
 
-	public void setMemberIn(Map<String, Integer> memberIn) {
+	public void setMemberIn(Map<Long, Integer> memberIn) {
 		this.memberIn = memberIn;
 	}
-
 }

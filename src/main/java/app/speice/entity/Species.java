@@ -8,181 +8,182 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "species")
 public class Species {
-	
-	@Id
-	private Long id;
-	private String name;
-	private Integer lifetime;
-	@Column(name="basepow")
-	private Integer basePow;
-	@Column(name="basedef")
-	private Integer baseDef;
-	@Column(name="basedex")
-	private Integer baseDex;
-	@Column(name="basehp")
-	private Integer baseHp;
-	@Column(name="baseint")
-	private Integer baseInt;
-	private Integer soul;
-	@Column(name="ratiostart")
-	private Integer ratioStart;
-	@Column(name="ratioend")
-	private Integer ratioEnd;
-	private String actions;
-	@Column(name="sleeptime")
-	private Integer sleepTime;
-	@Column(name="foragetime")
-	private Integer forageTime;
-	private String foods;
-	@Column(name="hprecover")
-	private Integer hpRecover;
-	@Column(name="vigorrecover")
-	private Integer vigorRecover;
-	@Column(name="satietyrecover")
-	private Integer satietyRecover;
 
-	public Long getId() {
-		return id;
-	}
+    @Id
+    private Long id;
+    private String name;
+    @Column(name = "lifetime")
+    private Integer lifeTime;
+    @Column(name = "basepow")
+    private Integer basePow;
+    @Column(name = "basedef")
+    private Integer baseDef;
+    @Column(name = "basedex")
+    private Integer baseDex;
+    @Column(name = "basehp")
+    private Integer baseHp;
+    @Column(name = "baseint")
+    private Integer baseInt;
+    private Integer soul;
+    @Column(name = "ratiostart")
+    private Integer ratioStart;
+    @Column(name = "ratioend")
+    private Integer ratioEnd;
+    private String actions;
+    @Column(name = "sleeptime")
+    private Integer sleepTime;
+    @Column(name = "foragetime")
+    private Integer forageTime;
+    private String foods;
+    @Column(name = "hprecover")
+    private Integer hpRecover;
+    @Column(name = "vigorrecover")
+    private Integer vigorRecover;
+    @Column(name = "satietyrecover")
+    private Integer satietyRecover;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Integer getLifetime() {
-		return lifetime;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setLifetime(Integer lifetime) {
-		this.lifetime = lifetime;
-	}
+    public Integer getLifeTime() {
+        return lifeTime;
+    }
 
-	public Integer getBasePow() {
-		return basePow;
-	}
+    public void setLifeTime(Integer lifeTime) {
+        this.lifeTime = lifeTime;
+    }
 
-	public void setBasePow(Integer basePow) {
-		this.basePow = basePow;
-	}
+    public Integer getBasePow() {
+        return basePow;
+    }
 
-	public Integer getBaseDef() {
-		return baseDef;
-	}
+    public void setBasePow(Integer basePow) {
+        this.basePow = basePow;
+    }
 
-	public void setBaseDef(Integer baseDef) {
-		this.baseDef = baseDef;
-	}
+    public Integer getBaseDef() {
+        return baseDef;
+    }
 
-	public Integer getBaseDex() {
-		return baseDex;
-	}
+    public void setBaseDef(Integer baseDef) {
+        this.baseDef = baseDef;
+    }
 
-	public void setBaseDex(Integer baseDex) {
-		this.baseDex = baseDex;
-	}
+    public Integer getBaseDex() {
+        return baseDex;
+    }
 
-	public Integer getBaseHp() {
-		return baseHp;
-	}
+    public void setBaseDex(Integer baseDex) {
+        this.baseDex = baseDex;
+    }
 
-	public void setBaseHp(Integer baseHp) {
-		this.baseHp = baseHp;
-	}
+    public Integer getBaseHp() {
+        return baseHp;
+    }
 
-	public Integer getBaseInt() {
-		return baseInt;
-	}
+    public void setBaseHp(Integer baseHp) {
+        this.baseHp = baseHp;
+    }
 
-	public void setBaseInt(Integer baseInt) {
-		this.baseInt = baseInt;
-	}
+    public Integer getBaseInt() {
+        return baseInt;
+    }
 
-	public Integer getSoul() {
-		return soul;
-	}
+    public void setBaseInt(Integer baseInt) {
+        this.baseInt = baseInt;
+    }
 
-	public void setSoul(Integer soul) {
-		this.soul = soul;
-	}
+    public Integer getSoul() {
+        return soul;
+    }
 
-	public Integer getRatioStart() {
-		return ratioStart;
-	}
+    public void setSoul(Integer soul) {
+        this.soul = soul;
+    }
 
-	public void setRatioStart(Integer ratioStart) {
-		this.ratioStart = ratioStart;
-	}
+    public Integer getRatioStart() {
+        return ratioStart;
+    }
 
-	public Integer getRatioEnd() {
-		return ratioEnd;
-	}
+    public void setRatioStart(Integer ratioStart) {
+        this.ratioStart = ratioStart;
+    }
 
-	public void setRatioEnd(Integer ratioEnd) {
-		this.ratioEnd = ratioEnd;
-	}
+    public Integer getRatioEnd() {
+        return ratioEnd;
+    }
 
-	public String getActions() {
-		return actions;
-	}
+    public void setRatioEnd(Integer ratioEnd) {
+        this.ratioEnd = ratioEnd;
+    }
 
-	public void setActions(String actions) {
-		this.actions = actions;
-	}
+    public String getActions() {
+        return actions;
+    }
 
-	public Integer getSleepTime() {
-		return sleepTime;
-	}
+    public void setActions(String actions) {
+        this.actions = actions;
+    }
 
-	public void setSleepTime(Integer sleepTime) {
-		this.sleepTime = sleepTime;
-	}
+    public Integer getSleepTime() {
+        return sleepTime;
+    }
 
-	public Integer getForageTime() {
-		return forageTime;
-	}
+    public void setSleepTime(Integer sleepTime) {
+        this.sleepTime = sleepTime;
+    }
 
-	public void setForageTime(Integer forageTime) {
-		this.forageTime = forageTime;
-	}
+    public Integer getForageTime() {
+        return forageTime;
+    }
 
-	public String getFoods() {
-		return foods;
-	}
+    public void setForageTime(Integer forageTime) {
+        this.forageTime = forageTime;
+    }
 
-	public void setFoods(String foods) {
-		this.foods = foods;
-	}
+    public String getFoods() {
+        return foods;
+    }
 
-	public Integer getHpRecover() {
-		return hpRecover;
-	}
+    public void setFoods(String foods) {
+        this.foods = foods;
+    }
 
-	public void setHpRecover(Integer hpRecover) {
-		this.hpRecover = hpRecover;
-	}
+    public Integer getHpRecover() {
+        return hpRecover;
+    }
 
-	public Integer getVigorRecover() {
-		return vigorRecover;
-	}
+    public void setHpRecover(Integer hpRecover) {
+        this.hpRecover = hpRecover;
+    }
 
-	public void setVigorRecover(Integer vigorRecover) {
-		this.vigorRecover = vigorRecover;
-	}
+    public Integer getVigorRecover() {
+        return vigorRecover;
+    }
 
-	public Integer getSatietyRecover() {
-		return satietyRecover;
-	}
+    public void setVigorRecover(Integer vigorRecover) {
+        this.vigorRecover = vigorRecover;
+    }
 
-	public void setSatietyRecover(Integer satietyRecover) {
-		this.satietyRecover = satietyRecover;
-	}
+    public Integer getSatietyRecover() {
+        return satietyRecover;
+    }
+
+    public void setSatietyRecover(Integer satietyRecover) {
+        this.satietyRecover = satietyRecover;
+    }
 
 }

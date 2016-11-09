@@ -11,15 +11,12 @@ public class RegionTree {
 	private List<Region> regionList;
 	private RequestContext context;
 
-	public RegionTree(RequestContext context) {
+	public RegionTree() {
 		root = new Region();
 		root.setId(-1l);
 		regionList = new ArrayList<Region>();
 		loadRegion(root, regionList);
-		this.context = context;
-		if (context != null) {
-			root.setName(context.getMessage("world"));
-		}
+		root.setName("world");
 	}
 
 	public void addRegion(Region r) {

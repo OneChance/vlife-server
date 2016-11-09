@@ -18,242 +18,252 @@ import app.speice.entity.Species;
 @Table(name = "account")
 public class Account extends NetMessage {
 
-	@Id
-	@GeneratedValue(generator = "paymentableGenerator")
-	@GenericGenerator(name = "paymentableGenerator", strategy = "increment")
-	private Long id;
+    @Id
+    @GeneratedValue(generator = "paymentableGenerator")
+    @GenericGenerator(name = "paymentableGenerator", strategy = "increment")
+    private Long id;
 
-	private String account;
-	private String name;
-	private String password;
-	private String salt;
-	private String sex;
-	
-	@Column(name="speciesid")
-	private Long speciesId;
-	private Integer soul;
-	
-	@Column(name="addpow")
-	private Integer addPow;
-	@Column(name="adddef")
-	private Integer addDef;
-	@Column(name="addhp")
-	private Integer addHp;
-	@Column(name="adddex")
-	private Integer addDex;
-	@Column(name="addint")
-	private Integer addInt;
-	@Column(name="reincarnatetime")
-	private Date reincarnateTime;
-	private Integer level;
-	private Integer exp;
-	private Long region;
-	private Integer satiety;
-	private Integer vigor;
-	private Integer hp;
-	@Transient
-	private Species species;
-	@Transient
-	private String enterType;
-	@Transient
-	private Long remainTime;
+    private String account;
+    private String name;
+    private String password;
+    private String salt;
+    private String sex;
 
-	public Account() {
-		this.speciesId = 0l;
-		this.soul = 0;
-		this.addPow = 0;
-		this.addDef = 0;
-		this.addHp = 0;
-		this.addDex = 0;
-		this.addInt = 0;
-		this.level = 0;
-		this.exp = 0;
-		this.region = 0l;
-		this.satiety = 100;
-		this.vigor = 100;
-	}
+    @Column(name = "speciesid")
+    private Long speciesId;
+    private Integer soul;
 
-	public Long getId() {
-		return id;
-	}
+    @Column(name = "addpow")
+    private Integer addPow;
+    @Column(name = "adddef")
+    private Integer addDef;
+    @Column(name = "addhp")
+    private Integer addHp;
+    @Column(name = "adddex")
+    private Integer addDex;
+    @Column(name = "addint")
+    private Integer addInt;
+    @Column(name = "reincarnatetime")
+    private Date reincarnateTime;
+    private Integer level;
+    private Integer exp;
+    private Long region;
+    private Integer satiety;
+    private Integer vigor;
+    private Integer hp;
+    @Transient
+    private Species species;
+    @Transient
+    private String enterType;
+    @Transient
+    private Long remainTime;
+    @Transient
+    private Integer soulget;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Account() {
+        this.speciesId = 0l;
+        this.soul = 0;
+        this.addPow = 0;
+        this.addDef = 0;
+        this.addHp = 0;
+        this.addDex = 0;
+        this.addInt = 0;
+        this.level = 0;
+        this.exp = 0;
+        this.region = 0l;
+        this.satiety = 100;
+        this.vigor = 100;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getSex() {
-		return sex;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getAccount() {
-		return account;
-	}
+    public String getSex() {
+        return sex;
+    }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
-	public Integer getSoul() {
-		return soul;
-	}
+    public String getAccount() {
+        return account;
+    }
 
-	public void setSoul(Integer soul) {
-		this.soul = soul;
-	}
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
-	public Integer getAddPow() {
-		return addPow;
-	}
+    public Integer getSoul() {
+        return soul;
+    }
 
-	public void setAddPow(Integer addPow) {
-		this.addPow = addPow;
-	}
+    public void setSoul(Integer soul) {
+        this.soul = soul;
+    }
 
-	public Integer getAddDef() {
-		return addDef;
-	}
+    public Integer getAddPow() {
+        return addPow;
+    }
 
-	public void setAddDef(Integer addDef) {
-		this.addDef = addDef;
-	}
+    public void setAddPow(Integer addPow) {
+        this.addPow = addPow;
+    }
 
-	public Integer getAddHp() {
-		return addHp;
-	}
+    public Integer getAddDef() {
+        return addDef;
+    }
 
-	public void setAddHp(Integer addHp) {
-		this.addHp = addHp;
-	}
+    public void setAddDef(Integer addDef) {
+        this.addDef = addDef;
+    }
 
-	public Integer getAddDex() {
-		return addDex;
-	}
+    public Integer getAddHp() {
+        return addHp;
+    }
 
-	public void setAddDex(Integer addDex) {
-		this.addDex = addDex;
-	}
+    public void setAddHp(Integer addHp) {
+        this.addHp = addHp;
+    }
 
-	public Integer getAddInt() {
-		return addInt;
-	}
+    public Integer getAddDex() {
+        return addDex;
+    }
 
-	public void setAddInt(Integer addInt) {
-		this.addInt = addInt;
-	}
+    public void setAddDex(Integer addDex) {
+        this.addDex = addDex;
+    }
 
-	public Date getReincarnateTime() {
-		return reincarnateTime;
-	}
+    public Integer getAddInt() {
+        return addInt;
+    }
 
-	public void setReincarnateTime(Date reincarnateTime) {
-		this.reincarnateTime = reincarnateTime;
-	}
+    public void setAddInt(Integer addInt) {
+        this.addInt = addInt;
+    }
 
-	public Integer getLevel() {
-		return level;
-	}
+    public Date getReincarnateTime() {
+        return reincarnateTime;
+    }
 
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
+    public void setReincarnateTime(Date reincarnateTime) {
+        this.reincarnateTime = reincarnateTime;
+    }
 
-	public Integer getExp() {
-		return exp;
-	}
+    public Integer getLevel() {
+        return level;
+    }
 
-	public void setExp(Integer exp) {
-		this.exp = exp;
-	}
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 
-	public Long getRegion() {
-		return region;
-	}
+    public Integer getExp() {
+        return exp;
+    }
 
-	public void setRegion(Long region) {
-		this.region = region;
-	}
+    public void setExp(Integer exp) {
+        this.exp = exp;
+    }
 
-	public Integer getSatiety() {
-		return satiety;
-	}
+    public Long getRegion() {
+        return region;
+    }
 
-	public void setSatiety(Integer satiety) {
-		this.satiety = satiety;
-	}
+    public void setRegion(Long region) {
+        this.region = region;
+    }
 
-	public Integer getVigor() {
-		return vigor;
-	}
+    public Integer getSatiety() {
+        return satiety;
+    }
 
-	public void setVigor(Integer vigor) {
-		this.vigor = vigor;
-	}
+    public void setSatiety(Integer satiety) {
+        this.satiety = satiety;
+    }
 
-	public Integer getHp() {
-		return hp;
-	}
+    public Integer getVigor() {
+        return vigor;
+    }
 
-	public void setHp(Integer hp) {
-		this.hp = hp;
-	}
+    public void setVigor(Integer vigor) {
+        this.vigor = vigor;
+    }
 
-	public Species getSpecies() {
-		return species;
-	}
+    public Integer getHp() {
+        return hp;
+    }
 
-	public void setSpecies(Species species) {
-		this.species = species;
-	}
+    public void setHp(Integer hp) {
+        this.hp = hp;
+    }
 
-	public String getEnterType() {
-		return enterType;
-	}
+    public Species getSpecies() {
+        return species;
+    }
 
-	public void setEnterType(String enterType) {
-		this.enterType = enterType;
-	}
+    public void setSpecies(Species species) {
+        this.species = species;
+    }
 
-	public Long getSpeciesId() {
-		return speciesId;
-	}
+    public String getEnterType() {
+        return enterType;
+    }
 
-	public void setSpeciesId(Long speciesId) {
-		this.speciesId = speciesId;
-	}
+    public void setEnterType(String enterType) {
+        this.enterType = enterType;
+    }
 
-	public String getSalt() {
-		return salt;
-	}
+    public Long getSpeciesId() {
+        return speciesId;
+    }
 
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
+    public void setSpeciesId(Long speciesId) {
+        this.speciesId = speciesId;
+    }
 
-	public Long getRemainTime() {
-		return remainTime;
-	}
+    public String getSalt() {
+        return salt;
+    }
 
-	public void setRemainTime(Long remainTime) {
-		this.remainTime = remainTime;
-	}
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public Long getRemainTime() {
+        return remainTime;
+    }
+
+    public void setRemainTime(Long remainTime) {
+        this.remainTime = remainTime;
+    }
+
+    public Integer getSoulget() {
+        return soulget;
+    }
+
+    public void setSoulget(Integer soulget) {
+        this.soulget = soulget;
+    }
 }

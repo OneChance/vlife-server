@@ -18,8 +18,21 @@ public class RoleController {
 
     @RequestMapping("/changeProperty")
     public NetMessage changeProperty(@RequestBody Account propAccount, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Account loginAccount = accountService.getLoginAccount(request,response);
-        return roleService.changeProp(loginAccount,propAccount);
+        Account loginAccount = accountService.getLoginAccount(request, response);
+        return roleService.changeProp(loginAccount, propAccount);
+    }
+
+    @RequestMapping("/toReincarnate")
+    public Account toReincarnate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Account loginAccount = accountService.getLoginAccount(request, response);
+        loginAccount.setSoulget(roleService.calSoulGet(loginAccount));
+        return loginAccount;
+    }
+
+    @RequestMapping("/reincarnate")
+    public NetMessage reincarnate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Account loginAccount = accountService.getLoginAccount(request, response);
+        return roleService.reincarnate(loginAccount);
     }
 
     @Resource

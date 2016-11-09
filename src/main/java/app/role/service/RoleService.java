@@ -10,11 +10,17 @@ import org.springframework.stereotype.Service;
 import app.account.entity.Account;
 import app.speice.entity.Species;
 import app.speice.service.SpeiceService;
+import sun.nio.ch.Net;
 
 
 @Service
 public class RoleService {
 
+    /**
+     * Description:转生成为的新物种
+     * @param soul:魂值
+     * @return
+     */
     public Long reincarnation(Integer soul) {
         Random random = new Random();
         Integer max = getRandomMax();
@@ -47,26 +53,30 @@ public class RoleService {
     public Long getRemainTime(Account account, Species species) {
         Long passTime = new Date().getTime()
                 - account.getReincarnateTime().getTime();
-        Long totalTime = species.getLifetime() * 24 * 60 * 60 * 1000l;
+        Long totalTime = species.getLifeTime() * 24 * 60 * 60 * 1000l;
 
         return Math.max(0, totalTime - passTime);
     }
 
-    public Integer calSoulGet(Account account, Species species) {
+    public Integer calSoulGet(Account account) {
 
-        Integer specieSoul = species.getSoul();
+        Integer specieSoul = account.getSpecies().getSoul();
         Integer specisLevel = account.getLevel();
 
         return specieSoul * specisLevel;
     }
 
-    public String reincarnate(Account account) throws Exception {
+    public NetMessage reincarnate(Account account) throws Exception {
+
+        NetMessage netMessage = new NetMessage();
 
         Species species = speiceService.getSpeices(account);
         if (this.getRemainTime(account, species) > 0) {
-            return "stillremaintime";
+            netMessage.setType(NetMessage.DANGER);
+            netMessage.setContent("still_remain_time");
+            return netMessage;
         }
-        Integer soul = this.calSoulGet(account, species);
+        Integer soul = this.calSoulGet(account);
         Integer sumSoul = account.getSoul() + soul;
         account.setSoul(sumSoul);
         initAccount(account);
@@ -74,8 +84,9 @@ public class RoleService {
         account.setSoul(sumSoul - newSpecies.getSoul());
         assetConvert(account);
         accountRepository.save(account);
-
-        return "";
+        netMessage.setType(NetMessage.SUCCESS);
+        netMessage.setContent("reincarnate_completed");
+        return netMessage;
     }
 
     public NetMessage changeProp(Account loginAccount, Account propAccount) throws Exception {
@@ -87,13 +98,13 @@ public class RoleService {
         }
 
         if (loginAccount.getRemainTime() < 24 * 60 * 60 * 1000) {
-            netMessage.setMessage(NetMessage.DANGER,"exceeded_deadline");
+            netMessage.setMessage(NetMessage.DANGER, "exceeded_deadline");
             return netMessage;
         }
 
         if (propAccount.getAddPow() < 0 || propAccount.getAddDef() < 0 ||
                 propAccount.getAddDef() < 0 || propAccount.getAddDef() < 0 || propAccount.getAddDef() < 0) {
-            netMessage.setMessage(NetMessage.DANGER,"data_error");
+            netMessage.setMessage(NetMessage.DANGER, "data_error");
             return netMessage;
         }
 
@@ -104,7 +115,7 @@ public class RoleService {
         Integer addHp = propAccount.getAddHp() - loginAccount.getAddHp();
 
         if (addPow + addDef + addDex + addInt + addHp > loginAccount.getSoul()) {
-            netMessage.setMessage(NetMessage.DANGER,"data_error");
+            netMessage.setMessage(NetMessage.DANGER, "data_error");
             return netMessage;
         }
 
@@ -120,7 +131,7 @@ public class RoleService {
 
         accountRepository.save(loginAccount);
 
-        netMessage.setMessage(NetMessage.SUCCESS,"change_success");
+        netMessage.setMessage(NetMessage.SUCCESS, "change_success");
 
         return netMessage;
     }
