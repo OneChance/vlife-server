@@ -4,6 +4,7 @@ import app.account.entity.Account;
 import app.account.service.AccountService;
 import app.base.JsonTool;
 import app.base.NetMessage;
+import app.region.entity.Region;
 import app.region.entity.RegionTree;
 import app.region.service.RegionService;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
@@ -30,9 +31,12 @@ public class RegionController {
         Account account = accountService.getLoginAccount(request, response);
         NetMessage netMessage = new NetMessage();
         RegionTree rTree = regionService.getRegionTree(account);
-        String regionData = JsonTool.toString(rTree.getRoot());
+        Region root = rTree.getRoot();
+        root.setCurrentRegion(account.getRegion());
+        String regionData = JsonTool.toString(root);
         regionData = "[" + regionData.replaceAll("name", "text").replaceAll("subRegions", "nodes").replaceAll(",\"nodes\":\\[\\]", "") + "]";
         netMessage.setContent(regionData);
+
         return netMessage;
     }
 

@@ -12,7 +12,7 @@ apply plugin: 'spring-boot'
 
 jar {
     baseName = 'gs-rest-service-cors'
-    version =  '0.1.0'
+    version = '0.1.0'
 }
 
 repositories {
@@ -25,9 +25,9 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-rest")
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('org.json:json')
-	runtime('mysql:mysql-connector-java')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('com.fasterxml.jackson.core:jackson-databind:2.8.4')
+    runtime('mysql:mysql-connector-java')
 }
 
 task wrapper(type: Wrapper) {

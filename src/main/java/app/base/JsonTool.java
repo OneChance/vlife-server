@@ -1,9 +1,21 @@
 package app.base;
 
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonTool {
-    public static String toString(Object object){
-        return JSONObject.valueToString(object);
+
+    static ObjectMapper mapper;
+
+    public static String toString(Object object) {
+        if (mapper == null) {
+            mapper = new ObjectMapper();
+        }
+
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }
